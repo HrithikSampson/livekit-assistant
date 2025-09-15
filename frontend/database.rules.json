@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "rooms": {
+      "$roomId": {
+        ".read": "auth != null",
+        ".write": "auth != null && (
+          !data.exists() || 
+          data.child('userId').val() == auth.uid ||
+          auth.token.role == 'supervisor'
+        )"
+      }
+    }
+  }
+}

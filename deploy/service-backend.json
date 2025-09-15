@@ -1,0 +1,26 @@
+{
+  "serviceName": "livekit-backend-service",
+  "cluster": "livekit-cluster",
+  "taskDefinition": "livekit-backend",
+  "desiredCount": 2,
+  "launchType": "FARGATE",
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": ["subnet-xxxxxxx", "subnet-xxxxxxx"],
+      "securityGroups": ["sg-xxxxxxxxx"],
+      "assignPublicIp": "ENABLED"
+    }
+  },
+  "loadBalancers": [
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:YOUR_ACCOUNT_ID:targetgroup/livekit-backend-tg/xxxxxxxxx",
+      "containerName": "livekit-backend",
+      "containerPort": 8080
+    }
+  ],
+  "healthCheckGracePeriodSeconds": 300,
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 50
+  }
+}
